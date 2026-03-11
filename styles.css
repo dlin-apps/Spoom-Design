@@ -45,14 +45,15 @@ a:hover {
   color: var(--gold);
 }
 
-/* ─── Dot Grid Canvas ──────────────────────────────── */
-#dot-grid {
+/* ─── Gradient Background ──────────────────────────── */
+#grid-bg {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: 0;
   pointer-events: none;
+  background: radial-gradient(ellipse at 85% -5%, rgba(232, 197, 71, 0.08) 0%, transparent 50%);
 }
 
 /* ─── Navigation ───────────────────────────────────── */
