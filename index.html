@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spoom Design</title>
+  <meta name="description" content="Spoom Design LLC builds thoughtful software at the intersection of UX leadership, fintech, and emerging technology.">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Animated dot grid background -->
+  <canvas id="dot-grid"></canvas>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <button class="logo" data-page="home">
+      <img src="images/small.png" alt="Spoom Design" style="width: 28px; height: 28px; border-radius: 4px;">
+      SPOOM DESIGN
+    </button>
+    <div class="nav-links">
+      <button class="nav-link" data-page="products">Products</button>
+      <button class="nav-link" data-page="about">About</button>
+      <button class="nav-link" data-page="contact">Contact</button>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main id="main">
+
+    <!-- HOME -->
+    <section id="page-home" class="page">
+      <div class="animate-in">
+        <p class="eyebrow">Burien, WA</p>
+        <h1 class="hero-title">Design-led<br><span class="accent">products &amp; tools</span></h1>
+        <p class="hero-sub">Spoom Design LLC builds thoughtful software at the intersection of UX leadership, fintech, and emerging technology.</p>
+        <div class="hero-cta">
+          <button class="btn-primary" data-page="products">View Products →</button>
+          <button class="btn-secondary" data-page="about">About</button>
+        </div>
+      </div>
+      <div class="hero-stats animate-in" style="animation-delay: 0.3s">
+        <div class="stat">
+          <span class="stat-num">25+</span>
+          <span class="stat-label">Years in UX</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">3</span>
+          <span class="stat-label">Apps in Development</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">6+</span>
+          <span class="stat-label">Companies Led</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="page-products" class="page" style="display:none">
+      <div class="animate-in">
+        <p class="eyebrow">What We Are Building</p>
+        <h2 class="section-title">Products</h2>
+      </div>
+      <div class="product-grid">
+
+        <div class="product-card animate-in" style="animation-delay: 0s" data-color="#E8C547">
+          <div class="product-icon" style="background: transparent;">
+                        <img src="images/swingscanner-64.png" alt="Swing Scanner" style="width: 52px; height: 52px; border-radius: 10px;">
+          </div>
+          <h3 class="product-name">Swing Scanner</h3>
+          <p class="product-tagline" style="color: #E8C547">Systematic swing trading analysis</p>
+          <p class="product-desc">A sophisticated market scanner built on Python/FastAPI, integrating real-time market regime detection, multi-stage exit strategies, hedge overlays, and signal quality analytics. Designed for disciplined, systematic paper-trading workflows.</p>
+          <div class="tag-row">
+            <span class="tag">Python</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Alpaca API</span>
+            <span class="tag">Railway</span>
+          </div>
+        </div>
+
+        <div class="product-card animate-in" style="animation-delay: 0.12s" data-color="#47B5E8">
+          <div class="product-icon" style="background: #47B5E818">
+            <span>⚖️</span>
+          </div>
+          <h3 class="product-name">Portfolio Rebalancer</h3>
+          <p class="product-tagline" style="color: #47B5E8">Strategic allocation management</p>
+          <p class="product-desc">A 10-category strategic allocation tool with custom thesis glide paths, enabling investors to manage and rebalance diversified portfolios across thematic sleeves — from grid infrastructure to robotics ETFs.</p>
+          <div class="tag-row">
+            <span class="tag">React</span>
+            <span class="tag">Financial Modeling</span>
+            <span class="tag">ETF Analysis</span>
+          </div>
+        </div>
+
+        <div class="product-card animate-in" style="animation-delay: 0.24s" data-color="#E87B47">
+          <div class="product-icon" style="background: #E87B4718">
+            <span>🐱</span>
+          </div>
+          <h3 class="product-name">Cat Translator</h3>
+          <p class="product-tagline" style="color: #E87B47">Feline mood detection for iOS</p>
+          <p class="product-desc">An iOS app using SwiftUI with KNN-based mood detection, Apple's Vision framework, and a CloudKit crowdsourced learning system. Point your camera at your cat and decode their emotional state.</p>
+          <div class="tag-row">
+            <span class="tag">SwiftUI</span>
+            <span class="tag">Vision Framework</span>
+            <span class="tag">CloudKit</span>
+            <span class="tag">CoreML</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="page-about" class="page" style="display:none">
+      <div class="animate-in">
+        <p class="eyebrow">The Person Behind Spoom</p>
+        <h2 class="section-title">About Daan</h2>
+      </div>
+      <div class="about-grid animate-in" style="animation-delay: 0.15s">
+        <div class="about-main">
+          <p class="about-lead">A design executive with 25+ years of UX leadership experience, currently on sabbatical — building the products I've always wanted to exist.</p>
+          <p class="about-body">I've spent my career leading design organizations at companies like Workday, Axon, Qualtrics, and Microsoft. At Axon, I built the design org from the ground up. At Workday, I led a large Product Design organization as Senior Director.</p>
+          <p class="about-body">Today, I'm channeling that experience into hands-on product building — exploring the intersection of financial technology, systematic trading, iOS development, and AI-assisted workflows. I also teach graduate UX Design &amp; Research as an Adjunct Professor at Northeastern University.</p>
+          <p class="about-body">Based in Burien, Washington — where the mountains meet the sea and the coffee is excellent.</p>
+        </div>
+        <div class="about-sidebar">
+          <div class="sidebar-section">
+            <h4 class="sidebar-title">Career</h4>
+            <div class="role-row"><span class="role-co">Workday</span><span class="role-title">Senior Director, Product Design</span></div>
+            <div class="role-row"><span class="role-co">Axon</span><span class="role-title">Built design org from scratch</span></div>
+            <div class="role-row"><span class="role-co">Qualtrics</span><span class="role-title">Design Leadership</span></div>
+            <div class="role-row"><span class="role-co">Microsoft</span><span class="role-title">UX Design</span></div>
+            <div class="role-row"><span class="role-co">Moz</span><span class="role-title">UX Design</span></div>
+            <div class="role-row"><span class="role-co">Socrata</span><span class="role-title">UX Design</span></div>
+          </div>
+          <div class="sidebar-section" style="margin-top: 32px">
+            <h4 class="sidebar-title">Also</h4>
+            <p class="role-title">Adjunct Professor — Northeastern University</p>
+            <p class="role-title" style="margin-top: 6px">Founder — Spoom Design LLC</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="page-contact" class="page" style="display:none">
+      <div class="animate-in">
+        <p class="eyebrow">Get In Touch</p>
+        <h2 class="section-title">Contact</h2>
+      </div>
+      <div class="contact-grid animate-in" style="animation-delay: 0.15s">
+        <div class="contact-card">
+          <div class="contact-icon">✉️</div>
+          <h4 class="contact-label">Email</h4>
+          <p class="contact-value"><a href="mailto:email@spoomdesign.com">email@spoomdesign.com</a></p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📍</div>
+          <h4 class="contact-label">Location</h4>
+          <p class="contact-value">Burien, WA</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">💼</div>
+          <h4 class="contact-label">LinkedIn</h4>
+          <p class="contact-value"><a href="https://www.linkedin.com/company/spoom-design/" target="_blank" rel="noopener">linkedin.com/company/spoom-design</a></p>
+        </div>
+      </div>
+      <div class="contact-note animate-in" style="animation-delay: 0.3s">
+        <p class="contact-note-text">Interested in collaboration, consulting, or just want to talk design and fintech? I'd love to hear from you.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <span class="footer-text">© <span id="year"></span> Spoom Design LLC · Burien, WA</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
