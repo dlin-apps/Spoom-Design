@@ -384,6 +384,58 @@ a:hover {
   font-weight: 300;
 }
 
+/* ─── Work Samples ─────────────────────────────────── */
+.work-samples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.work-sample-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px 24px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.work-sample-card:hover {
+  border-color: rgba(232, 197, 71, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232, 197, 71, 0.06);
+  color: inherit;
+}
+
+.work-sample-co {
+  font-size: 15px;
+  font-weight: 500;
+  color: #ccc;
+}
+
+.work-sample-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.portfolio-link {
+  font-size: 14px;
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: color 0.2s;
+}
+
+.portfolio-link:hover {
+  color: #f0d060;
+}
+
 /* ─── Contact ──────────────────────────────────────── */
 .contact-grid {
   display: grid;
