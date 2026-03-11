@@ -37,6 +37,11 @@ function navigateTo(page) {
 
   currentPage = page;
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Track page view in Google Analytics
+  if (typeof gtag === 'function') {
+    gtag('event', 'page_view', { page_title: page, page_path: '/' + page });
+  }
 }
 
 // Attach click handlers to all navigation triggers

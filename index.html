@@ -8,7 +8,15 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; connect-src https://www.google-analytics.com https://analytics.google.com">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q63FCN560S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Q63FCN560S');
+  </script>
   <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="Images/favicon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="Images/favicon-192.png">
@@ -94,7 +102,7 @@
           </div>
           <h3 class="product-name">Portfolio Rebalancer</h3>
           <p class="product-tagline" style="color: #47B5E8">Strategic allocation management</p>
-          <p class="product-desc">A 10-category strategic allocation tool with custom thesis glide paths, enabling investors to manage and rebalance diversified portfolios across thematic sleeves, from grid infrastructure to robotics ETFs.</p>
+          <p class="product-desc">A 10-category strategic allocation tool with custom thesis glide paths, enabling investors to manage and rebalance diversified portfolios across thematic sleeves — from grid infrastructure to robotics ETFs.</p>
           <div class="tag-row">
             <span class="tag">React</span>
             <span class="tag">Financial Modeling</span>
@@ -128,10 +136,10 @@
       </div>
       <div class="about-grid animate-in" style="animation-delay: 0.15s">
         <div class="about-main">
-          <p class="about-lead">A design executive with 25+ years of UX leadership experience, currently building the products I've always wanted to exist.</p>
+          <p class="about-lead">A design executive with 25+ years of UX leadership experience, currently on sabbatical — building the products I've always wanted to exist.</p>
           <p class="about-body">I've spent my career leading design organizations at companies like Workday, Axon, Qualtrics, and Microsoft. At Axon, I built the design org from the ground up. At Workday, I led a large Product Design organization as Senior Director.</p>
-          <p class="about-body">Today, I'm channeling that experience into hands-on product building, exploring the intersection of financial technology, systematic trading, iOS development, and AI-assisted workflows. I also teach graduate UX Design &amp; Research as an Adjunct Professor at Northeastern University.</p>
-          <p class="about-body">Based in Burien, Washington, where the mountains meet the sea and the coffee is excellent.</p>
+          <p class="about-body">Today, I'm channeling that experience into hands-on product building — exploring the intersection of financial technology, systematic trading, iOS development, and AI-assisted workflows. I also teach graduate UX Design &amp; Research as an Adjunct Professor at Northeastern University.</p>
+          <p class="about-body">Based in Burien, Washington — where the mountains meet the sea and the coffee is excellent.</p>
         </div>
         <div class="about-sidebar">
           <div class="sidebar-section">
