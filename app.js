@@ -65,4 +65,23 @@ document.querySelectorAll('.product-card').forEach((card) => {
   });
 });
 
+// ─── Clickable Product Cards ─────────────────────────
+document.querySelectorAll('.product-card[data-href]').forEach((card) => {
+  const href = card.dataset.href;
+  if (!href) return;
+
+  card.style.cursor = 'pointer';
+
+  card.addEventListener('click', () => {
+    window.location.href = href;
+  });
+
+  card.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      window.location.href = href;
+    }
+  });
+});
+
 // ─── Grid background is CSS-only, no JS needed ────────

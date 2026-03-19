@@ -8,7 +8,7 @@
   <meta name="author" content="Spoom Design LLC">
   <meta property="og:title" content="Session Timer by Spoom Design LLC">
   <meta property="og:description" content="A floating, always-on-top presentation timer for Mac.">
-  <meta property="og:image" content="Images/session-timer/01_running.png">
+  <meta property="og:image" content="Images/session-timer/OnTop.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
@@ -153,10 +153,6 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
-    }
-
-    .screenshot-grid .featured {
-      grid-column: 1 / -1;
     }
 
     .screenshot-card {
@@ -416,39 +412,43 @@
 <!-- Screenshots -->
 <section class="screenshots">
   <div class="screenshot-grid">
-    <div class="screenshot-card featured">
-      <img src="Images/session-timer/01_running.png" alt="Session Timer running during a presentation">
+    <div class="screenshot-card">
+      <img src="Images/session-timer/OnTop.png" alt="Session Timer floating above other windows">
       <div class="screenshot-caption">
         <h3>Always visible, never in the way</h3>
         <p>Floats over slides, browsers, and Zoom — across all Spaces and desktops.</p>
       </div>
     </div>
+
     <div class="screenshot-card">
-      <img src="Images/session-timer/03_warning.png" alt="Timer warning state">
+      <img src="Images/session-timer/Running.png" alt="Session Timer running during a presentation">
+      <div class="screenshot-caption">
+        <h3>Clear running state</h3>
+        <p>See the active segment, elapsed time, and controls at a glance.</p>
+      </div>
+    </div>
+
+    <div class="screenshot-card">
+      <img src="Images/session-timer/TimeAlmostUp.png" alt="Timer warning state when time is almost up">
       <div class="screenshot-caption">
         <h3>Clear visual warnings</h3>
         <p>Countdown changes color when time is running low.</p>
       </div>
     </div>
+
     <div class="screenshot-card">
-      <img src="Images/session-timer/04_finished.png" alt="Timer finished state">
+      <img src="Images/session-timer/Start.png" alt="Session Timer ready to start">
       <div class="screenshot-caption">
-        <h3>One click to the next speaker</h3>
-        <p>Reset and restart the full sequence instantly.</p>
+        <h3>Ready for each session</h3>
+        <p>Start a presentation with one click and keep timing consistent from speaker to speaker.</p>
       </div>
     </div>
+
     <div class="screenshot-card">
-      <img src="Images/session-timer/02_qa_segment.png" alt="Q&A segment">
-      <div class="screenshot-caption">
-        <h3>Automatic segment transitions</h3>
-        <p>Presentation ends — Q&amp;A begins. No buttons to press.</p>
-      </div>
-    </div>
-    <div class="screenshot-card">
-      <img src="Images/session-timer/05_settings.png" alt="Settings panel">
+      <img src="Images/session-timer/SegmentSettings.png" alt="Settings panel for timer segments">
       <div class="screenshot-caption">
         <h3>Fully customizable segments</h3>
-        <p>Add up to 6 segments. Name them, time them, save between launches.</p>
+        <p>Add segments, name them, set durations, and save your setup between launches.</p>
       </div>
     </div>
   </div>
