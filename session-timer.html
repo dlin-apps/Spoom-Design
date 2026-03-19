@@ -1,583 +1,664 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Session Timer — Spoom Design LLC</title>
-  <meta name="description" content="Session Timer is a floating, always-on-top presentation timer for Mac. Custom segments, visual warnings, and one-click restart between speakers.">
-  <meta name="author" content="Spoom Design LLC">
-  <meta property="og:title" content="Session Timer by Spoom Design LLC">
-  <meta property="og:description" content="A floating, always-on-top presentation timer for Mac.">
-  <meta property="og:image" content="Images/session-timer/OnTop.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Session Timer – Spoom Design</title>
+  <meta name="description" content="Session Timer is a lightweight Mac app for timed presentations, critiques, classes, and Q&A. Keep your timer visible above other windows and across Spaces." />
+  <meta property="og:title" content="Session Timer – Spoom Design" />
+  <meta property="og:description" content="A presentation timer for Mac that stays on top, supports multiple segments, and keeps sessions on track." />
+  <meta property="og:image" content="Images/session-timer/OnTop.png" />
+  <meta property="og:type" content="website" />
+
   <style>
     :root {
-      --bg: #0e0e0e;
-      --surface: #151515;
-      --surface-hover: #1a1a1a;
-      --border: #1e1e1e;
-      --gold: #E8C547;
-      --gold-dim: rgba(232, 197, 71, 0.15);
+      --bg: #0a0a12;
+      --panel: #121222;
+      --panel-2: #1a1a2e;
+      --text: #f5f7fb;
+      --muted: #a6adbb;
+      --line: rgba(255,255,255,0.08);
+      --brand: #7c5cff;
       --green: #22c55e;
       --blue: #3b82f6;
-      --text: #e8e8e8;
-      --text-dim: #888;
-      --text-dimmer: #555;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'DM Sans', -apple-system, sans-serif;
+      --red: #ff4b4b;
+      --orange: #f97316;
+      --max: 1180px;
+      --radius: 20px;
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
-      background: var(--bg);
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(124,92,255,0.12), transparent 28%),
+        linear-gradient(180deg, #0b0b14 0%, #090911 100%);
       color: var(--text);
-      font-family: var(--sans);
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
     }
 
-    a { color: var(--gold); text-decoration: none; transition: opacity 0.2s; }
-    a:hover { opacity: 0.8; }
-
-    /* ── Nav ── */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 18px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(14, 14, 14, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .nav-logo {
-      font-family: var(--sans);
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 3px;
-      color: var(--gold);
-      text-transform: uppercase;
-    }
-
-    .nav-links { display: flex; gap: 28px; }
-    .nav-links a {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-dim);
-      letter-spacing: 0.5px;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--text); opacity: 1; }
-
-    /* ── Hero ── */
-    .hero {
-      padding: 140px 40px 60px;
-      max-width: 960px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--gold-dim);
-      border: 1px solid rgba(232, 197, 71, 0.25);
-      border-radius: 20px;
-      padding: 6px 16px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 28px;
-    }
-
-    .hero h1 {
-      font-family: var(--serif);
-      font-size: clamp(40px, 6vw, 64px);
-      font-weight: 400;
-      line-height: 1.1;
-      margin-bottom: 20px;
-      color: var(--text);
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--green);
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: var(--text-dim);
-      max-width: 600px;
-      margin: 0 auto 36px;
-      line-height: 1.7;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--green);
-      color: #000;
-      padding: 14px 32px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 0.5px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .hero-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(34, 197, 94, 0.25);
-      opacity: 1;
-    }
-
-    /* ── Screenshots ── */
-    .screenshots {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px 40px 80px;
-    }
-
-    .screenshot-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    .screenshot-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-    .screenshot-card:hover {
-      border-color: #333;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-    }
-
-    .screenshot-card img {
-      width: 100%;
+    img {
+      max-width: 100%;
       display: block;
     }
 
-    .screenshot-caption {
-      padding: 16px 20px;
-    }
-    .screenshot-caption h3 {
-      font-family: var(--serif);
-      font-size: 18px;
-      font-weight: 400;
-      margin-bottom: 4px;
-    }
-    .screenshot-caption p {
-      font-size: 13px;
-      color: var(--text-dim);
-    }
-
-    /* ── Features ── */
-    .features {
-      max-width: 960px;
+    .container {
+      width: min(var(--max), calc(100% - 40px));
       margin: 0 auto;
-      padding: 60px 40px 80px;
     }
 
-    .features h2 {
-      font-family: var(--serif);
-      font-size: 36px;
-      font-weight: 400;
-      margin-bottom: 48px;
-      text-align: center;
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(10,10,18,0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .nav-logo {
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 72px 0 44px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border: 1px solid rgba(124,92,255,0.25);
+      background: rgba(124,92,255,0.08);
+      color: #d8d1ff;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-grid {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(2.4rem, 6vw, 4.7rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p.lead {
+      font-size: 1.12rem;
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 0 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: transform 0.15s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, #7c5cff 0%, #5d7cff 100%);
+      color: white;
+      box-shadow: 0 10px 30px rgba(92, 106, 255, 0.28);
+    }
+
+    .button-secondary {
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+    }
+
+    .hero-note {
+      color: #97a0b1;
+      font-size: 0.95rem;
+    }
+
+    .hero-shot {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-shot img {
+      width: 100%;
+      border-radius: 18px;
+    }
+
+    section {
+      padding: 30px 0;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 24px;
+    }
+
+    .section-head h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
     }
 
     .feature-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
     }
 
     .feature-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 28px;
-      transition: border-color 0.3s;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: var(--shadow);
     }
-    .feature-card:hover { border-color: var(--green); }
 
-    .feature-icon {
-      font-size: 28px;
-      margin-bottom: 14px;
-    }
     .feature-card h3 {
-      font-family: var(--sans);
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 8px;
+      margin: 0 0 10px;
+      font-size: 1.05rem;
     }
+
     .feature-card p {
-      font-size: 14px;
-      color: var(--text-dim);
-      line-height: 1.6;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
     }
 
-    /* ── Use Cases ── */
-    .use-cases {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 40px 40px 80px;
-      text-align: center;
+    .screenshots {
+      padding-top: 10px;
     }
 
-    .use-cases h2 {
-      font-family: var(--serif);
-      font-size: 36px;
-      font-weight: 400;
-      margin-bottom: 16px;
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
     }
 
-    .use-cases p {
-      color: var(--text-dim);
-      font-size: 16px;
-      margin-bottom: 36px;
+    .screenshot-card {
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+      box-shadow: var(--shadow);
     }
 
-    .use-tags {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
+    .screenshot-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #06060d;
     }
 
-    .use-tag {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 20px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-dim);
-      transition: border-color 0.3s, color 0.3s;
-    }
-    .use-tag:hover { border-color: var(--gold); color: var(--text); }
-
-    /* ── Keyboard ── */
-    .keyboard {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 40px 40px 80px;
+    .screenshot-caption {
+      padding: 18px 18px 20px;
     }
 
-    .keyboard h2 {
-      font-family: var(--serif);
-      font-size: 28px;
-      font-weight: 400;
-      margin-bottom: 28px;
-      text-align: center;
+    .screenshot-caption h3 {
+      margin: 0 0 8px;
+      font-size: 1.02rem;
     }
 
-    .shortcut-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border);
+    .screenshot-caption p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.97rem;
     }
 
-    .key {
-      background: var(--surface);
-      border: 1px solid #333;
-      border-radius: 6px;
-      padding: 6px 14px;
-      font-family: 'DM Sans', monospace;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text);
-      min-width: 60px;
-      text-align: center;
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
     }
 
-    .shortcut-label {
-      font-size: 14px;
-      color: var(--text-dim);
+    .info-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
     }
 
-    /* ── Privacy ── */
-    .privacy {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 60px 40px 80px;
+    .info-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.1rem;
     }
 
-    .privacy h2 {
-      font-family: var(--serif);
-      font-size: 32px;
-      font-weight: 400;
-      margin-bottom: 24px;
+    .info-card p,
+    .info-card li {
+      color: var(--muted);
     }
 
-    .privacy p, .privacy li {
-      font-size: 15px;
-      color: var(--text-dim);
-      line-height: 1.8;
-      margin-bottom: 16px;
+    .info-card ul {
+      margin: 0;
+      padding-left: 18px;
     }
 
-    .privacy ul {
-      padding-left: 20px;
-      margin-bottom: 16px;
+    .privacy,
+    .support {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 26px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
+      box-shadow: var(--shadow);
+    }
+
+    .privacy h2,
+    .support h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.5rem;
+    }
+
+    .privacy p,
+    .privacy li,
+    .support p,
+    .support li {
+      color: var(--muted);
+    }
+
+    .privacy a,
+    .support a {
+      color: #d6d8ff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
     .privacy-highlight {
-      background: var(--surface);
-      border: 1px solid var(--green);
-      border-radius: 12px;
-      padding: 24px 28px;
-      margin: 28px 0;
-    }
-    .privacy-highlight p {
-      color: var(--text);
-      font-weight: 500;
-      margin: 0;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(124,92,255,0.08);
+      border: 1px solid rgba(124,92,255,0.2);
+      margin: 14px 0 18px;
     }
 
-    /* ── Footer ── */
+    .divider {
+      height: 1px;
+      background: var(--line);
+      margin: 20px 0 28px;
+    }
+
     footer {
-      border-top: 1px solid var(--border);
-      padding: 40px;
-      text-align: center;
+      padding: 32px 0 60px;
+      color: #99a3b3;
+    }
+
+    footer .footer-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
     }
 
     footer p {
-      font-size: 13px;
-      color: var(--text-dimmer);
-      margin-bottom: 6px;
-    }
-    footer a { color: var(--text-dim); }
-
-    /* ── Divider ── */
-    .divider {
-      max-width: 960px;
-      margin: 0 auto;
-      height: 1px;
-      background: var(--border);
+      margin: 0;
     }
 
-    /* ── Responsive ── */
-    @media (max-width: 768px) {
-      nav { padding: 14px 20px; }
-      .hero { padding: 120px 20px 40px; }
-      .screenshot-grid { grid-template-columns: 1fr; }
-      .feature-grid { grid-template-columns: 1fr; }
-      .features, .screenshots, .use-cases, .keyboard, .privacy { padding-left: 20px; padding-right: 20px; }
+    @media (max-width: 980px) {
+      .hero-grid,
+      .feature-grid,
+      .screenshot-grid,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 52px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        align-items: flex-start;
+        padding: 14px 0;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        gap: 14px;
+      }
+
+      .container {
+        width: min(var(--max), calc(100% - 24px));
+      }
+
+      .hero-shot,
+      .feature-card,
+      .info-card,
+      .privacy,
+      .support {
+        border-radius: 18px;
+      }
+
+      .screenshot-card {
+        border-radius: 18px;
+      }
     }
   </style>
 </head>
 <body>
-
-<!-- Navigation -->
-<nav>
-  <a href="index.html" class="nav-logo">Spoom Design</a>
-  <div class="nav-links">
-    <a href="index.html#products">Products</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#contact">Contact</a>
-  </div>
-</nav>
-
-<!-- Hero -->
-<section class="hero">
-  <div class="hero-badge">
-    <span>●</span> Mac App
-  </div>
-  <h1>Session Timer</h1>
-  <p>A floating, always-on-top timer for managing timed presentations, meetings, and multi-speaker sessions on your Mac.</p>
-  <a href="#" class="hero-cta">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-    Download for Mac
-  </a>
-</section>
-
-<!-- Screenshots -->
-<section class="screenshots">
-  <div class="screenshot-grid">
-    <div class="screenshot-card">
-      <img src="Images/session-timer/OnTop.png" alt="Session Timer floating above other windows">
-      <div class="screenshot-caption">
-        <h3>Always visible, never in the way</h3>
-        <p>Floats over slides, browsers, and Zoom — across all Spaces and desktops.</p>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">SPOOM DESIGN</a>
+      <div class="nav-links">
+        <a href="index.html#products">Products</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="#support">Support</a>
       </div>
     </div>
+  </nav>
 
-    <div class="screenshot-card">
-      <img src="Images/session-timer/Running.png" alt="Session Timer running during a presentation">
-      <div class="screenshot-caption">
-        <h3>Clear running state</h3>
-        <p>See the active segment, elapsed time, and controls at a glance.</p>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">Mac app · Presentation productivity</div>
+
+        <div class="hero-grid">
+          <div>
+            <h1>Keep every presentation on time.</h1>
+            <p class="lead">
+              Session Timer is a focused timer for Mac that stays visible above your windows and across Spaces,
+              so you can manage presentations, critiques, classes, and Q&amp;A without losing track of time.
+            </p>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="#support">Get Support</a>
+              <a class="button button-secondary" href="#screenshots">See Screenshots</a>
+            </div>
+
+            <div class="hero-note">
+              Ideal for teaching, portfolio reviews, design critiques, workshops, and conference sessions.
+            </div>
+          </div>
+
+          <div class="hero-shot">
+            <img src="Images/session-timer/OnTop.png" alt="Session Timer floating on top of other Mac windows" />
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="screenshot-card">
-      <img src="Images/session-timer/TimeAlmostUp.png" alt="Timer warning state when time is almost up">
-      <div class="screenshot-caption">
-        <h3>Clear visual warnings</h3>
-        <p>Countdown changes color when time is running low.</p>
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <h2>Designed for real presentation flow</h2>
+          <p>
+            Session Timer keeps timing simple: create named segments, monitor elapsed time, jump to the next section,
+            and see clear visual warnings when time is nearly up.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Stays on top</h3>
+            <p>
+              Keep the timer visible above slides, browser windows, Zoom, and other apps so you always know where you are.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Multi-segment sessions</h3>
+            <p>
+              Build a session with separate segments like Presentation, Demo, Critique, or Q&amp;A.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Clear warning states</h3>
+            <p>
+              Get strong visual cues as the countdown approaches zero, making it easier to wrap up gracefully.
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="screenshot-card">
-      <img src="Images/session-timer/Start.png" alt="Session Timer ready to start">
-      <div class="screenshot-caption">
-        <h3>Ready for each session</h3>
-        <p>Start a presentation with one click and keep timing consistent from speaker to speaker.</p>
+    <section class="screenshots" id="screenshots">
+      <div class="container">
+        <div class="section-head">
+          <h2>How it looks in use</h2>
+          <p>
+            A quick look at setup, running state, warning state, and how the app stays visible during presentations.
+          </p>
+        </div>
+
+        <div class="screenshot-grid">
+          <div class="screenshot-card">
+            <img src="Images/session-timer/OnTop.png" alt="Session Timer floating above other windows" />
+            <div class="screenshot-caption">
+              <h3>Always visible</h3>
+              <p>Keep the timer above your working windows while you teach, present, or facilitate.</p>
+            </div>
+          </div>
+
+          <div class="screenshot-card">
+            <img src="Images/session-timer/Start.png" alt="Session Timer ready to start" />
+            <div class="screenshot-caption">
+              <h3>Ready to begin</h3>
+              <p>Start a session with one click and move cleanly into the first segment.</p>
+            </div>
+          </div>
+
+          <div class="screenshot-card">
+            <img src="Images/session-timer/Running.png" alt="Session Timer running during a presentation" />
+            <div class="screenshot-caption">
+              <h3>Clear running state</h3>
+              <p>See the active segment, total elapsed time, and controls at a glance.</p>
+            </div>
+          </div>
+
+          <div class="screenshot-card">
+            <img src="Images/session-timer/TimeAlmostUp.png" alt="Timer warning state when time is almost up" />
+            <div class="screenshot-caption">
+              <h3>Time warning</h3>
+              <p>Strong color changes make it obvious when the speaker needs to wrap up.</p>
+            </div>
+          </div>
+
+          <div class="screenshot-card">
+            <img src="Images/session-timer/SegmentSettings.png" alt="Settings panel for timer segments" />
+            <div class="screenshot-caption">
+              <h3>Configurable segments</h3>
+              <p>Name segments, set durations, and define warning timing before the end.</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="screenshot-card">
-      <img src="Images/session-timer/SegmentSettings.png" alt="Settings panel for timer segments">
-      <div class="screenshot-caption">
-        <h3>Fully customizable segments</h3>
-        <p>Add segments, name them, set durations, and save your setup between launches.</p>
+    <section>
+      <div class="container">
+        <div class="two-col">
+          <div class="info-card">
+            <h3>Great for</h3>
+            <ul>
+              <li>University teaching and studio critiques</li>
+              <li>UX portfolio reviews and design interviews</li>
+              <li>Conference sessions and speaker timing</li>
+              <li>Workshops, demos, and team presentations</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h3>Why it helps</h3>
+            <ul>
+              <li>Maintains fairness across presenters</li>
+              <li>Reduces mental overhead while facilitating</li>
+              <li>Keeps Q&amp;A and transition time visible</li>
+              <li>Prevents timing drift in longer sessions</li>
+            </ul>
+          </div>
+        </div>
       </div>
+    </section>
+
+    <section id="support">
+      <div class="container">
+        <div class="support">
+          <h2>Support</h2>
+
+          <div class="privacy-highlight">
+            <p>Need help with Session Timer? We’re happy to help.</p>
+          </div>
+
+          <p><strong>Email support:</strong> <a href="mailto:support@spoomdesign.com?subject=Session%20Timer%20Support">support@spoomdesign.com</a></p>
+
+          <p><strong>Best way to get help:</strong></p>
+          <ul>
+            <li>Describe what happened</li>
+            <li>Include your macOS version</li>
+            <li>Include the Session Timer version if available</li>
+            <li>Add screenshots if the issue is visual</li>
+          </ul>
+
+          <p><strong>Typical support topics:</strong></p>
+          <ul>
+            <li>Staying on top of other windows or across Spaces</li>
+            <li>Segment setup and warning timing</li>
+            <li>Start, pause, skip, and restart behavior</li>
+            <li>App behavior after install or update</li>
+          </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="privacy" id="privacy">
+          <h2>Privacy Policy</h2>
+
+          <div class="privacy-highlight">
+            <p>Session Timer does not require an account and does not collect personal data for tracking or advertising.</p>
+          </div>
+
+          <p>
+            Session Timer is designed to run locally on your Mac. We do not sell personal data, and we do not use third-party
+            advertising SDKs inside the app.
+          </p>
+
+          <p><strong>Information we do not collect:</strong></p>
+          <ul>
+            <li>No account registration information</li>
+            <li>No analytics tied to your identity</li>
+            <li>No advertising profile data</li>
+            <li>No presentation content from your files or windows</li>
+          </ul>
+
+          <p><strong>Local app data:</strong></p>
+          <ul>
+            <li>Your timer configuration may be stored locally on your device</li>
+            <li>This may include segment names, durations, and warning settings</li>
+            <li>This information stays on your device unless you choose to share it</li>
+          </ul>
+
+          <p><strong>Support communication:</strong></p>
+          <ul>
+            <li>If you contact us by email, we use the information you send only to respond to your request</li>
+            <li>We do not use support messages for advertising</li>
+          </ul>
+
+          <p>
+            If you have questions about privacy, contact us at
+            <a href="mailto:support@spoomdesign.com?subject=Session%20Timer%20Privacy">support@spoomdesign.com</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p>© <span id="year"></span> Spoom Design. All rights reserved.</p>
+      <p><a href="#support">Support</a> · <a href="#privacy">Privacy Policy</a> · <a href="index.html#contact">Contact</a></p>
     </div>
-  </div>
-</section>
+  </footer>
 
-<div class="divider"></div>
-
-<!-- Features -->
-<section class="features">
-  <h2>Built for real sessions</h2>
-  <div class="feature-grid">
-    <div class="feature-card">
-      <div class="feature-icon">📌</div>
-      <h3>Always on Top</h3>
-      <p>Floats above every window — Keynote, Google Slides, Zoom, browsers. Visible on all Spaces and desktops.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">⏱️</div>
-      <h3>Multi-Segment Timer</h3>
-      <p>Add up to 6 named segments that flow automatically. Presentation ends, Q&amp;A begins — no manual switching.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">⏭️</div>
-      <h3>Skip &amp; Restart</h3>
-      <p>Speaker finishes early? Skip ahead. Session done? One click resets everything for the next presenter.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🎨</div>
-      <h3>Visual Warnings</h3>
-      <p>Countdown changes color when time is running low. Screen flashes at transitions. Audible beeps signal the end.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">💾</div>
-      <h3>Persistent Settings</h3>
-      <p>Configure once, use all semester or all quarter. Segment names, durations, and warnings are saved between launches.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">⌨️</div>
-      <h3>Keyboard Shortcuts</h3>
-      <p>Space to start/pause, Q to skip, R to restart. Keep your hands on the keyboard while facilitating.</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- Use Cases -->
-<section class="use-cases">
-  <h2>Use it for anything timed</h2>
-  <p>Session Timer adapts to whatever format you're running.</p>
-  <div class="use-tags">
-    <div class="use-tag">Student Presentations</div>
-    <div class="use-tag">Sprint Reviews</div>
-    <div class="use-tag">Design Critiques</div>
-    <div class="use-tag">Board Meetings</div>
-    <div class="use-tag">Lightning Talks</div>
-    <div class="use-tag">Panel Discussions</div>
-    <div class="use-tag">Thesis Defenses</div>
-    <div class="use-tag">Standup Meetings</div>
-    <div class="use-tag">Workshop Sessions</div>
-    <div class="use-tag">Conference Talks</div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- Keyboard shortcuts -->
-<section class="keyboard">
-  <h2>Keyboard Shortcuts</h2>
-  <div class="shortcut-row">
-    <span class="key">Space</span>
-    <span class="shortcut-label">Start / Pause / Next Presenter</span>
-  </div>
-  <div class="shortcut-row">
-    <span class="key">Q</span>
-    <span class="shortcut-label">Skip to next segment</span>
-  </div>
-  <div class="shortcut-row">
-    <span class="key">R</span>
-    <span class="shortcut-label">Restart full sequence</span>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- Privacy Policy -->
-<section class="privacy" id="privacy">
-  <h2>Privacy Policy</h2>
-
-  <div class="privacy-highlight">
-    <p>Session Timer does not collect, store, or transmit any personal data. Period.</p>
-  </div>
-
-  <p>Session Timer is a standalone Mac application made by Spoom Design LLC. We believe your data is yours, and a timer app has no business collecting it.</p>
-
-  <p><strong>What the app stores:</strong></p>
-  <ul>
-    <li>Your timer settings (segment names, durations, warning thresholds, session name)</li>
-    <li>This data is stored locally on your Mac using UserDefaults</li>
-    <li>It never leaves your device</li>
-  </ul>
-
-  <p><strong>What the app does NOT do:</strong></p>
-  <ul>
-    <li>No analytics or tracking of any kind</li>
-    <li>No network requests — the app works entirely offline</li>
-    <li>No accounts or sign-ins</li>
-    <li>No access to your files, contacts, camera, microphone, or location</li>
-    <li>No data shared with third parties</li>
-  </ul>
-
-  <p><strong>App Sandbox:</strong> Session Timer runs inside macOS App Sandbox with zero entitlements — no network access, no file access, no hardware access. It is as locked down as a Mac app can be.</p>
-
-  <p><strong>Children's Privacy:</strong> The app does not collect information from anyone, including children under the age of 13.</p>
-
-  <p><strong>Changes:</strong> If this policy ever changes, the update will be posted on this page. Given that the app collects nothing, we don't anticipate any changes.</p>
-
-  <p style="color: var(--text-dimmer); font-size: 13px; margin-top: 32px;">Last updated: March 2026 · Spoom Design LLC · Burien, WA</p>
-</section>
-
-<!-- Footer -->
-<footer>
-  <p style="color: var(--text-dim); margin-bottom: 12px;">
-    <a href="index.html" style="color: var(--gold);">Spoom Design LLC</a>
-  </p>
-  <p>Session Timer is made by <a href="index.html">Spoom Design LLC</a> in Burien, WA.</p>
-  <p><a href="#privacy">Privacy Policy</a> · <a href="index.html#contact">Contact</a></p>
-  <p style="margin-top: 12px;">© 2026 Spoom Design LLC. All rights reserved.</p>
-</footer>
-
+  <script>
+    const year = document.getElementById('year');
+    if (year) {
+      year.textContent = new Date().getFullYear();
+    }
+  </script>
 </body>
 </html>
