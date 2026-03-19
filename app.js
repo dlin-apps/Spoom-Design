@@ -1,11 +1,14 @@
 // ─── Year ──────────────────────────────────────────────
-document.getElementById('year').textContent = new Date().getFullYear();
+const yearEl = document.getElementById('year');
+if (yearEl) {
+  yearEl.textContent = new Date().getFullYear();
+}
 
 // ─── Page Navigation ───────────────────────────────────
 const pages = ['home', 'products', 'about', 'contact'];
 let currentPage = 'home';
 
-function navigateTo(page) {
+function navigateTo(page, updateHash = true) {
   if (!pages.includes(page)) return;
 
   // Hide current page
@@ -21,7 +24,7 @@ function navigateTo(page) {
     const animEls = newEl.querySelectorAll('.animate-in');
     animEls.forEach((el) => {
       el.style.animation = 'none';
-      el.offsetHeight; // force reflow
+      void el.offsetHeight; // force reflow
       el.style.animation = '';
     });
   }
@@ -38,16 +41,44 @@ function navigateTo(page) {
   currentPage = page;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
+  // Update URL hash
+  if (updateHash) {
+    if (page === 'home') {
+      history.replaceState(null, '', window.location.pathname);
+    } else {
+      history.replaceState(null, '', `#${page}`);
+    }
+  }
+
   // Track page view in Google Analytics
   if (typeof gtag === 'function') {
-    gtag('event', 'page_view', { page_title: page, page_path: '/' + page });
+    gtag('event', 'page_view', {
+      page_title: page,
+      page_path: page === 'home' ? '/' : `/#${page}`
+    });
+  }
+}
+
+function handleInitialHash() {
+  const hash = window.location.hash.replace('#', '').toLowerCase();
+
+  if (pages.includes(hash)) {
+    navigateTo(hash, false);
+  } else {
+    navigateTo('home', false);
   }
 }
 
 // Attach click handlers to all navigation triggers
 document.querySelectorAll('[data-page]').forEach((el) => {
-  el.addEventListener('click', () => navigateTo(el.dataset.page));
+  el.addEventListener('click', (event) => {
+    event.preventDefault();
+    navigateTo(el.dataset.page);
+  });
 });
+
+// React to browser back/forward
+window.addEventListener('hashchange', handleInitialHash);
 
 // ─── Product Card Hover Colors ─────────────────────────
 document.querySelectorAll('.product-card').forEach((card) => {
@@ -55,7 +86,7 @@ document.querySelectorAll('.product-card').forEach((card) => {
   if (!color) return;
 
   card.addEventListener('mouseenter', () => {
-    card.style.borderColor = color + '44';
+    card.style.borderColor = `${color}44`;
     card.style.boxShadow = `0 12px 40px ${color}11`;
   });
 
@@ -65,7 +96,7 @@ document.querySelectorAll('.product-card').forEach((card) => {
   });
 });
 
-// ─── Clickable Product Cards ─────────────────────────
+// ─── Clickable Product Cards ───────────────────────────
 document.querySelectorAll('.product-card[data-href]').forEach((card) => {
   const href = card.dataset.href;
   if (!href) return;
@@ -84,4 +115,5 @@ document.querySelectorAll('.product-card[data-href]').forEach((card) => {
   });
 });
 
-// ─── Grid background is CSS-only, no JS needed ────────
+// ─── Init ──────────────────────────────────────────────
+handleInitialHash();
