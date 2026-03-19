@@ -61,48 +61,78 @@
       margin: 0 auto;
     }
 
-    nav {
+    /* Header nav adjusted to match index.html more closely */
+    #nav {
       position: sticky;
       top: 0;
-      z-index: 20;
-      backdrop-filter: blur(14px);
-      background: rgba(10,10,18,0.72);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav-inner {
-      width: min(var(--max), calc(100% - 40px));
-      margin: 0 auto;
-      min-height: 72px;
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      padding: 16px 40px;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #1a1a1a;
     }
 
-    .nav-logo {
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      font-size: 0.95rem;
+    .logo {
+      background: none;
+      border: none;
+      color: #e0e0e0;
+      font-family: "DM Sans", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
       white-space: nowrap;
+    }
+
+    .logo:hover {
+      color: #e0e0e0;
+    }
+
+    .logo img {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      flex: 0 0 auto;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 32px;
       flex-wrap: wrap;
     }
 
-    .nav-links a {
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: color 0.2s ease;
+    .nav-link {
+      background: none;
+      border: none;
+      font-family: "DM Sans", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding-bottom: 4px;
+      color: #999;
+      border-bottom: 1px solid transparent;
+      transition: color 0.3s, border-color 0.3s;
+      text-decoration: none;
     }
 
-    .nav-links a:hover {
-      color: var(--text);
+    .nav-link:hover {
+      color: #ccc;
+    }
+
+    .nav-link.active {
+      color: #E8C547;
+      border-bottom: 1px solid #E8C547;
     }
 
     .hero {
@@ -390,14 +420,17 @@
     }
 
     @media (max-width: 640px) {
-      .nav-inner {
-        align-items: flex-start;
-        padding: 14px 0;
-        flex-direction: column;
+      #nav {
+        padding: 14px 20px;
+      }
+
+      .logo {
+        font-size: 14px;
+        letter-spacing: 2px;
       }
 
       .nav-links {
-        gap: 14px;
+        gap: 18px;
       }
 
       .container {
@@ -419,15 +452,16 @@
   </style>
 </head>
 <body>
-  <nav>
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">SPOOM DESIGN</a>
-      <div class="nav-links">
-        <a href="index.html#products">Products</a>
-        <a href="index.html#about">About</a>
-        <a href="index.html#contact">Contact</a>
-        <a href="#support">Support</a>
-      </div>
+  <nav id="nav">
+    <a href="index.html" class="logo">
+      <img src="Images/small.png" alt="Spoom Design">
+      SPOOM DESIGN
+    </a>
+    <div class="nav-links">
+      <a href="index.html#products" class="nav-link">Products</a>
+      <a href="index.html#about" class="nav-link">About</a>
+      <a href="index.html#contact" class="nav-link">Contact</a>
+      <a href="#support" class="nav-link active">Support</a>
     </div>
   </nav>
 
