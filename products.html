@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products – Spoom Design</title>
+  <meta name="description" content="Products built by Spoom Design LLC — Swing Scanner, Portfolio Rebalancer, Cat Translator, and Session Timer.">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; connect-src https://www.google-analytics.com https://analytics.google.com">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q63FCN560S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Q63FCN560S');
+  </script>
+  <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="Images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="Images/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="Images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Static fine grid background -->
+  <div id="grid-bg"></div>
+
+  <!-- Navigation (loaded from nav.html) -->
+  <div id="nav-container"></div>
+
+  <!-- Main content -->
+  <main id="main">
+    <section class="page">
+      <div class="animate-in">
+        <p class="eyebrow">What We Are Building</p>
+        <h2 class="section-title">Products</h2>
+      </div>
+      <div class="product-grid">
+
+        <div class="product-card animate-in" style="animation-delay: 0s" data-color="#E8C547">
+          <div class="product-icon" style="background: transparent;">
+            <img src="Images/swingscanner-64.png" alt="Swing Scanner" style="width: 52px; height: 52px; border-radius: 10px;">
+          </div>
+          <h3 class="product-name">Swing Scanner</h3>
+          <p class="product-tagline" style="color: #E8C547">Systematic swing trading analysis</p>
+          <p class="product-desc">A sophisticated market scanner built on Python/FastAPI, integrating real-time market regime detection, multi-stage exit strategies, hedge overlays, and signal quality analytics. Designed for disciplined, systematic paper-trading workflows.</p>
+          <div class="tag-row">
+            <span class="tag">Python</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Alpaca API</span>
+            <span class="tag">Railway</span>
+          </div>
+        </div>
+
+        <div class="product-card animate-in" style="animation-delay: 0.12s" data-color="#47B5E8">
+          <div class="product-icon" style="background: #47B5E818">
+            <span>⚖️</span>
+          </div>
+          <h3 class="product-name">Portfolio Rebalancer</h3>
+          <p class="product-tagline" style="color: #47B5E8">Strategic allocation management</p>
+          <p class="product-desc">A 10-category strategic allocation tool with custom thesis glide paths, enabling investors to manage and rebalance diversified portfolios across thematic sleeves — from grid infrastructure to robotics ETFs.</p>
+          <div class="tag-row">
+            <span class="tag">React</span>
+            <span class="tag">Financial Modeling</span>
+            <span class="tag">ETF Analysis</span>
+          </div>
+        </div>
+
+        <div class="product-card animate-in" style="animation-delay: 0.24s" data-color="#E87B47">
+          <div class="product-icon" style="background: #E87B4718">
+            <span>🐱</span>
+          </div>
+          <h3 class="product-name">Cat Translator</h3>
+          <p class="product-tagline" style="color: #E87B47">Feline mood detection for iOS</p>
+          <p class="product-desc">An iOS app using SwiftUI with KNN-based mood detection, Apple's Vision framework, and a CloudKit crowdsourced learning system. Point your camera at your cat and decode their emotional state.</p>
+          <div class="tag-row">
+            <span class="tag">SwiftUI</span>
+            <span class="tag">Vision Framework</span>
+            <span class="tag">CloudKit</span>
+            <span class="tag">CoreML</span>
+          </div>
+        </div>
+
+        <a href="session-timer.html" class="product-card animate-in" style="animation-delay: 0.36s; text-decoration: none;" data-color="#22c55e">
+          <div class="product-icon" style="background: rgba(34, 197, 94, 0.1)">
+            <span>⏱</span>
+          </div>
+          <h3 class="product-name">Session Timer</h3>
+          <p class="product-tagline" style="color: #22c55e">Floating presentation timer for Mac</p>
+          <p class="product-desc">An always-on-top Mac app for managing timed presentations, meetings, and multi-speaker sessions. Custom segments, visual warnings, and one-click restart between speakers.</p>
+          <div class="tag-row">
+            <span class="tag">SwiftUI</span>
+            <span class="tag">macOS</span>
+            <span class="tag">Presentations</span>
+            <span class="tag">App Store</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <span class="footer-text">© <span id="year"></span> Spoom Design LLC · Burien, WA</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
