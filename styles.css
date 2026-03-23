@@ -236,6 +236,7 @@ a:hover {
 .btn-primary:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 20px rgba(232, 197, 71, 0.25);
+  color: var(--bg);
 }
 
 .btn-secondary {
