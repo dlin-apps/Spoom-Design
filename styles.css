@@ -343,6 +343,47 @@ a:hover {
   margin-bottom: 4px;
 }
 
+.product-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.product-name-row .product-name {
+  margin-bottom: 0;
+}
+
+.status-tag {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.status-beta {
+  color: #E8C547;
+  background: rgba(232, 197, 71, 0.1);
+  border: 1px solid rgba(232, 197, 71, 0.25);
+}
+
+.status-dev {
+  color: #999;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-released {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
 .product-tagline {
   font-size: 13px;
   font-weight: 500;
